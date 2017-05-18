@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Web.PassageMapper">
+    <resultMap id="passage" type="Web.Passage">
+        <id property="id" column="id" javaType="INTEGER" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="symptom" column="symptom" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_Alias_List">
+        id,
+        title as title,
+        content as content,
+        symptom as symptom
+    </sql>
+    <select id="selectPassageById" parameterType="Web.Passage" resultType="Web.Passage">
+        SELECT
+        <include refid="Base_Column_Alias_List"/>
+        FROM `passage` WHERE id = #{passage.id};
+    </select>
+
+    <select id="selectPassageByTitle" parameterType="Web.Passage" resultType="Web.Passage">
+        SELECT
+        <include refid="Base_Column_Alias_List"/>
+        FROM `passage` WHERE title = #{passage.title};
+    </select>
+
+
+
+</mapper>

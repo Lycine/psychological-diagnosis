@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="0.0.1"/>
+  <meta name="author" content="hongyu"/>
+  <link rel="icon" href="/favicon.ico"/>
+  <title>心理问题检测</title>
+  <!-- Bootstrap -->
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" media="screen" href="/css/ittac-homework.css"/>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
+  <link href="//cdn.bootcss.com/fullcalendar/3.3.1/fullcalendar.min.css" rel="stylesheet"/>
+  <link href="/css/fullcalendar.print.min.css" rel="stylesheet" media="print"/>
+</head>
+<body>
+<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">心理问题检测</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div>
+    <div class="col-md-12" style="margin-top: 20px">
+      <form class="" action="getSymptomHTML" method="post">
+        <div class="form-group">
+          <label for="symptom">症状</label>
+          <input type="text" class="form-control" id="symptom" name="symptom" placeholder="症状" th:value="${symptom}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">开始检测</button>
+      </form>
+    </div>
+  </div>
+  <div th:if="${result != null and result.status=='error'}" >
+    <div class="col-xs-12" style="margin-top: 20px">
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">
+          &times;
+        </a>
+        <span th:text="${result.content}">错误信息</span>
+      </div>
+    </div>
+  </div>
+  <div th:if="${result != null and result.status=='success'}" >
+    <div class="col-xs-12" style="margin-top: 20px">
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">
+          &times;
+        </a>
+        <span th:text="${result.content}">正确信息</span>
+      </div>
+    </div>
+  </div>
+  <br/>
+
+
+  <div th:if="${result != null and result.status=='success' and passage!=null}">
+    <div class="col-xs-12" style="margin-top: 20px">
+      <blockquote>
+        <h3 class="panel-title" th:text="${passage.title}">
+          待替换的标题
+        </h3>
+        <br/>
+        <p th:text="${passage.content}">
+          带替换的内容
+        </p>
+      </blockquote>
+    </div>
+  </div>
+
+</div>
+<script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
